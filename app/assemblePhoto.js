@@ -93,7 +93,6 @@ function importParts(imgSrc) {
     
     var imageObj = new Image();
     imageObj.onload = function () {
-        // darth vader
         var newImg = new Konva.Image({
             width: imageObj.width,
             height: imageObj.height
@@ -112,8 +111,14 @@ function importParts(imgSrc) {
         addAnchor(newImgGroup, imageObj.width+1, imageObj.height+1, 'bottomRight');
         addAnchor(newImgGroup, 0, imageObj.height+1, 'bottomLeft');
         newImg.image(imageObj);
-        console.log(imageObj.width+"|"+imageObj.height);
-        
+        newImgGroup.on('dragstart', function() {
+            this.moveToTop();
+            layer.draw();
+        });
+        newImgGroup.on('dblclick dbltap', function() {
+            this.destroy();
+            layer.draw();
+          });
         layer.draw();
 
     };
