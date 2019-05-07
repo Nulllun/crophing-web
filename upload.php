@@ -19,7 +19,7 @@ if($_POST) {
    
     $dataimg = base64_decode($img);
     
-    $nameimg= uniqid() ;
+    $nameimg = uniqid();
 
     $fileimg = $part . $nameimg . '.png';
     $successimg = file_put_contents($fileimg, $dataimg);

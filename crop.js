@@ -97,10 +97,10 @@ $(document).ready(function() {
 
       //var context = canvas.getContext("2d");
 
-      ctx.clearRect(0, 0, 217, 275);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
-      ctx.width = 217;
-      ctx.height = 275;
+      ctx.width = canvas.width;
+      ctx.height = canvas.height;
       ctx.globalCompositeOperation = "destination-over";
       //draw the polygon
       setTimeout(function() {
@@ -161,9 +161,6 @@ $(document).ready(function() {
           xhr.send(data);
           if (xhr.status === 200) {
             console.log(xhr.responseText);
-            console.log(done_body);
-            console.log(done_left_arm);
-            console.log(done_right_arm);
             if (part == "left_arm/" || done_left_arm != "") {
               if (part == "left_arm/") {
                 done_left_arm = xhr.responseText;
@@ -223,5 +220,30 @@ $(document).ready(function() {
     });
 
     // }
+    $("#finish").click(function() {
+      {
+        console.log("YO");
+        //upload to server (if needed)
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "finish.php", false);
+        xhr.setRequestHeader(
+          "Content-type",
+          "application/x-www-form-urlencoded"
+        );
+        var data = new FormData();
+        var myprod = $("#pid").val();
+        data =
+          "body=" +
+          done_body +
+          "&leftarm=" +
+          done_left_arm +
+          "&rightarm=" +
+          done_right_arm;
+        xhr.send(data);
+        if (xhr.status === 200) {
+          console.log(xhr.responseText);
+        }
+      }
+    });
   });
 });
