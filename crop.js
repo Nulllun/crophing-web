@@ -168,6 +168,7 @@ $(document).ready(function() {
               $("#myimg_left_arm").html(
                 '<img src="left_arm/' + done_left_arm + '.png"/>'
               );
+              document.getElementById("left_tag").innerHTML = "Left Arm";
             }
             if (part == "right_arm/" || done_right_arm != "") {
               if (part == "right_arm/") {
@@ -176,12 +177,14 @@ $(document).ready(function() {
               $("#myimg_right_arm").html(
                 '<img src="right_arm/' + done_right_arm + '.png"/>'
               );
+              document.getElementById("right_tag").innerHTML = "Right Arm";
             }
             if (part == "body/" || done_body != "") {
               if (part == "body/") {
                 done_body = xhr.responseText;
               }
               $("#myimg_body").html('<img src="body/' + done_body + '.png"/>');
+              document.getElementById("body_tag").innerHTML = "Body";
             }
             ctx = canvas.getContext("2d");
             imageObj = new Image();
