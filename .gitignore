@@ -1,9 +1,9 @@
 nbproject
 
-./body
+.body/
 
-./left_arm
+.left_arm/
 
-./right_arm
+.right_arm/
 
-./upload
+.upload/
