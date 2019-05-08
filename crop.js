@@ -31,9 +31,11 @@ $(document).ready(function() {
 
     // Draw  image onto the canvas
     imageObj.onload = function() {
+      canvas.height = imageObj.height;
+      canvas.width = imageObj.width;
       ctx.drawImage(imageObj, 0, 0);
     };
-    imageObj.src = "img.png";
+    imageObj.src = "img123.png";
 
     // Switch the blending mode
     ctx.globalCompositeOperation = "destination-over";
@@ -180,7 +182,7 @@ $(document).ready(function() {
             imageObj.onload = function() {
               ctx.drawImage(imageObj, 0, 0);
             };
-            imageObj.src = "img.png";
+            imageObj.src = "img123.png";
             // Switch the blending mode
             ctx.globalCompositeOperation = "destination-over";
             points = [];
