@@ -26,33 +26,48 @@
         <button id="finish" onclick="savePhoto()">Finish</button>
         <button id="finish" onclick="show()">Show Boundary</button>
         <button id="finish" onclick="hide()">Hide Boundary</button>
+        <button id="cropPhoto"><a href = "index.php">Go to CROP CROP</a></button>
     </div>
     <div id="img_bar"></div>
     <div id="model_preview"></div>
   </body>
   <script>
-    var dir = './../upload/new/';
     var img_bar = document.getElementById('img_bar');
-    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('./../upload/new/'));?>');
+    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
     clothesDirs.shift();
     clothesDirs.shift();
     for(var key in clothesDirs){
-      let img_item = document.createElement('img');
-      img_item.className = "img-item";
-      img_item.src = dir + clothesDirs[key];
-      img_item.onclick = function() {
-        (async function() {
-          let blob = await fetch(img_item.src).then(r => r.blob());
-          let dataUrl = await new Promise(resolve => {
-          let reader = new FileReader();
-          reader.onload = () => importParts( reader.result);
-          reader.readAsDataURL(blob);
-          
-          });
-        })();
-         
+      for(var i = 0;i<4;i++){
+        let part;
+        if(i==0){
+          part = 'body.png';
+        }
+        if(i==1){
+          part = 'leftarm.png';
+        }
+        if(i==2){
+          part = 'rightarm.png';
+        }
+        if(i==3){
+          part = 'org.png';
+        }
+        let path = 'uploads/' + clothesDirs[key] + '/' + part;
+        let img_item = document.createElement('img');
+        img_item.className = "img-item";
+        img_item.src = path;
+        img_item.onclick = function() {
+          (async function() {
+            let blob = await fetch(img_item.src).then(r => r.blob());
+            let dataUrl = await new Promise(resolve => {
+            let reader = new FileReader();
+            reader.onload = () => importParts( reader.result);
+            reader.readAsDataURL(blob);
+            
+            });
+          })();
+        }
+        img_bar.append(img_item);
       }
-      img_bar.append(img_item);
     }
 
     var width = window.innerWidth;
@@ -84,12 +99,21 @@
             var rotateFrame = new Konva.Transformer({
                 node: newImg,
                 centeredScaling: true,
-                rotationSnaps: [0, 90, 180, 270],
                 resizeEnabled: true
             });
             rotateFrameList.push(rotateFrame);
             layer.add(rotateFrame);
             newImg.on('click', function() {
+                this.moveToTop();
+                rotateFrame.moveToTop();
+                layer.draw();
+            });
+            newImg.on('dragstart', function() {
+                this.moveToTop();
+                rotateFrame.moveToTop();
+                layer.draw();
+            });
+            newImg.on('dragmove', function() {
                 this.moveToTop();
                 rotateFrame.moveToTop();
                 layer.draw();
