@@ -38,11 +38,35 @@
         <button class='form-control'  id="finish" onclick="hide()">Hide Boundary</button>
       </form>
     </div>
+    <div id="head_bar"></div>
     <div id="img_bar"></div>
     <div id="model_preview"></div>
     </div>
   </body>
   <script>
+    var head_bar = document.getElementById('head_bar');
+    var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
+    headDirs.shift();
+    headDirs.shift();
+    for(var key in headDirs){
+        let path = 'heads/' + headDirs[key];
+        let img_item = document.createElement('img');
+        img_item.className = "img-item";
+        img_item.src = path;
+        img_item.onclick = function() {
+          (async function() {
+            let blob = await fetch(img_item.src).then(r => r.blob());
+            let dataUrl = await new Promise(resolve => {
+            let reader = new FileReader();
+            reader.onload = () => importParts( reader.result);
+            reader.readAsDataURL(blob);
+            
+            });
+          })();
+        }
+        head_bar.append(img_item);
+    }
+
     var img_bar = document.getElementById('img_bar');
     var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
     clothesDirs.shift();
