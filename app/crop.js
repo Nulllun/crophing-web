@@ -135,7 +135,40 @@ $(document).ready(function() {
           ctx.fillStyle = pattern;
           ctx.fill();
 
-          var dataurl = canvas.toDataURL("image/png");
+          //edit here**************
+          //find 4 est in point
+          let top = null;
+          let down = null;
+          let left = null;
+          let right = null;
+          let xpoints = [];
+          let ypoints = [];
+          for(var pindex in points){
+            if(pindex%2 == 0){
+              xpoints.push(points[pindex]);
+            }
+            else{
+              ypoints.push(points[pindex]);
+            }
+          }
+          right = (Math.max(...xpoints));
+          left = (Math.min(...xpoints));
+          top = (Math.max(...ypoints));
+          down = (Math.min(...ypoints));
+          console.log(right+"|"+left+"|"+top+"|"+down);
+          let tmpImgData = ctx.getImageData(left,top,right-left,down-top);
+          let tmpCanvas = document.createElement('canvas');
+          tmpCanvas.width = right-left;
+          tmpCanvas.height = down-top;
+          let tmpCanvasData = tmpCanvas.getContext('2d');
+          tmpCanvasData.width = tmpCanvas.width;
+          tmpCanvasData.height = tmpCanvas.height;
+          tmpCanvasData.putImageData(tmpImgData,0,0)
+          //end edit
+
+          // var dataurl = canvas.toDataURL("image/png");
+
+          var dataurl = tmpCanvas.toDataURL("image/png");
 
           //upload to server (if needed)
           var xhr = new XMLHttpRequest();
@@ -243,3 +276,58 @@ $(document).ready(function() {
     });
   });
 });
+
+function trim(c) {
+  var ctx = c.getContext('2d'),
+    copy = document.createElement('canvas').getContext('2d'),
+    pixels = ctx.getImageData(0, 0, c.width, c.height),
+    l = pixels.data.length,
+    i,
+    bound = {
+      top: null,
+      left: null,
+      right: null,
+      bottom: null
+    },
+    x, y;
+
+  for (i = 0; i < l; i += 4) {
+    if (pixels.data[i+3] !== 0) {
+      x = (i / 4) % c.width;
+      y = ~~((i / 4) / c.width);
+  
+      if (bound.top === null) {
+        bound.top = y;
+      }
+      
+      if (bound.left === null) {
+        bound.left = x; 
+      } else if (x < bound.left) {
+        bound.left = x;
+      }
+      
+      if (bound.right === null) {
+        bound.right = x; 
+      } else if (bound.right < x) {
+        bound.right = x;
+      }
+      
+      if (bound.bottom === null) {
+        bound.bottom = y;
+      } else if (bound.bottom < y) {
+        bound.bottom = y;
+      }
+    }
+  }
+    
+  var trimHeight = bound.bottom - bound.top,
+      trimWidth = bound.right - bound.left,
+      trimmed = ctx.getImageData(bound.left, bound.top, trimWidth, trimHeight);
+  
+  copy.canvas.width = trimWidth;
+  copy.canvas.height = trimHeight;
+  copy.putImageData(trimmed, 0, 0);
+  
+  // open new window with trimmed image:
+  return copy.canvas;
+}
