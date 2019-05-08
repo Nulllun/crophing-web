@@ -13,6 +13,7 @@ $(document).ready(function() {
   var done_left_arm = "";
   var done_right_arm = "";
   var done_body = "";
+  var done_head = "";
   this.isOldIE = window.G_vmlCanvasManager;
   $(function() {
     //  if (document.domain == 'localhost') {
@@ -210,6 +211,13 @@ $(document).ready(function() {
               $("#myimg_body").html('<img src="body/' + done_body + '.png"/>');
               document.getElementById("body_tag").innerHTML = "Body";
             }
+            if (part == "head/" || done_head != "") {
+              if (part == "head/") {
+                done_head = xhr.responseText;
+              }
+              $("#myimg_head").html('<img src="head/' + done_head + '.png"/>');
+              document.getElementById("head_tag").innerHTML = "Head";
+            }
             ctx = canvas.getContext("2d");
             imageObj = new Image();
             imageObj.onload = function() {
@@ -246,10 +254,16 @@ $(document).ready(function() {
       console.log(part);
     });
 
+    $("#head").click(function() {
+      part = "head/";
+      document.getElementById("editing_message").innerHTML = "Now Croping Head";
+      console.log(part);
+    });
+
     // }
     $("#finish").click(function() {
       {
-        console.log("YO");
+        //console.log("YO");
         //upload to server (if needed)
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "finish.php", false);
@@ -266,6 +280,8 @@ $(document).ready(function() {
           done_left_arm +
           "&rightarm=" +
           done_right_arm +
+          "&head=" +
+          done_head +
           "&filename=" +
           document.getElementById("name_src").innerHTML;
         xhr.send(data);
