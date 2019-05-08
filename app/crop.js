@@ -242,6 +242,8 @@ $(document).ready(function() {
         );
         var data = new FormData();
         var myprod = $("#pid").val();
+        console.log("done_body:" + done_body);
+        console.log(document.getElementById("name_src").innerHTML);
         data =
           "body=" +
           done_body +

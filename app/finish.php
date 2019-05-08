@@ -19,11 +19,11 @@ if($_POST) {
     $filename_copy = str_replace("uploads/", "", $filename_copy);
     $filename_copy = str_replace(".png", "", $filename_copy);
 
-    $success1 = rename("body/" . $body . ".png", "uploads/clothes/" . $filename . "/body.png");
-    $success2 = rename("left_arm/" . $leftarm . ".png", "uploads/clothes/" . $filename . "/leftarm.png");
-    $success3 = rename("right_arm/" . $rightarm . ".png", "uploads/clothes/" . $filename . "/rightarm.png");
+    $success1 = rename("body/" . $body . ".png", $filename . "/body.png");
+    $success2 = rename("left_arm/" . $leftarm . ".png", $filename . "/leftarm.png");
+    $success3 = rename("right_arm/" . $rightarm . ".png", $filename . "/rightarm.png");
     if ($head != "") {
-        $success4 = rename("head/" . $head . ".png", "uploads/heads/" . $filename_copy . ".png");
+        $success4 = rename("head/" . $head . ".png", "heads/" . $filename_copy . ".png");
     }
 
     if ($success1 && $success2 && $success3) 

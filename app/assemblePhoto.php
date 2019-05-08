@@ -44,7 +44,7 @@
   </body>
   <script>
     var img_bar = document.getElementById('img_bar');
-    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/clothes/'));?>');
+    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
     clothesDirs.shift();
     clothesDirs.shift();
     for(var key in clothesDirs){
@@ -62,7 +62,7 @@
         if(i==3){
           part = 'org.png';
         }
-        let path = 'uploads/clothes/' + clothesDirs[key] + '/' + part;
+        let path = 'uploads/' + clothesDirs[key] + '/' + part;
         let img_item = document.createElement('img');
         img_item.className = "img-item";
         img_item.src = path;
