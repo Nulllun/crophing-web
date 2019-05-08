@@ -6,7 +6,7 @@
         <script src="js/bootstrap.js" type="application/javascript"></script>
     </head>
     <body>
-        <form method="POST" action="./index.php" enctype="multipart/form-data">
+        <form method="POST" action="./cropupload.php" enctype="multipart/form-data">
         <div class="form-group">
             <label for="exampleFormControlFile1">Select file input</label>
             <input type="file" class="form-control-file" name="fileToUpload" id="exampleFormControlFile1">
@@ -59,9 +59,12 @@
             echo "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
         } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            if (!file_exists($target_file)) {
+                mkdir($target_file, 0777, true);
+            }
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file . "/org." . $imageFileType)) {
                 echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                header("Location: index.php?link=" . $_FILES["fileToUpload"]["name"]);
+                echo("Location: index.php?link=CSCI4140_project/app/" . $target_file . "/org." . $imageFileType);
                 die();
             } else {
                 echo "Sorry, there was an error uploading your file.";
