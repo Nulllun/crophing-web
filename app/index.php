@@ -91,6 +91,14 @@
           <div id="oldposy" style="display:none;"></div>
           <div id="posx" style="display:none;"></div>
           <div id="posy" style="display:none;"></div>
+          <div id="url_src" style="display:none;">
+            <?php
+              echo $_GET['link'];
+            ?>
+          </div>
+          <div id="name_src" style="display:none;"><?php
+              echo $_GET['filename'];
+            ?></div>
         </td>
         <td>
           <i id="editing_message">Let's Start Cropping</i>

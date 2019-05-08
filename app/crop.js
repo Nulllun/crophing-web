@@ -35,7 +35,7 @@ $(document).ready(function() {
       canvas.width = imageObj.width;
       ctx.drawImage(imageObj, 0, 0);
     };
-    imageObj.src = "img123.png";
+    imageObj.src = document.getElementById("url_src").innerHTML;
 
     // Switch the blending mode
     ctx.globalCompositeOperation = "destination-over";
@@ -182,7 +182,7 @@ $(document).ready(function() {
             imageObj.onload = function() {
               ctx.drawImage(imageObj, 0, 0);
             };
-            imageObj.src = "img123.png";
+            imageObj.src = document.getElementById("url_src").innerHTML;
             // Switch the blending mode
             ctx.globalCompositeOperation = "destination-over";
             points = [];
@@ -232,7 +232,9 @@ $(document).ready(function() {
           "&leftarm=" +
           done_left_arm +
           "&rightarm=" +
-          done_right_arm;
+          done_right_arm +
+          "&filename=" +
+          document.getElementById("name_src").innerHTML;
         xhr.send(data);
         if (xhr.status === 200) {
           console.log(xhr.responseText);

@@ -64,7 +64,7 @@
             }
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file . "/org." . $imageFileType)) {
                 echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                header("Location: index.php?link=CSCI4140_project/app/" . $target_file . "/org." . $imageFileType);
+                header("Location: index.php?link=" . $target_file . "/org." . $imageFileType . "&filename=" . $target_file);
                 die();
             } else {
                 echo "Sorry, there was an error uploading your file.";
