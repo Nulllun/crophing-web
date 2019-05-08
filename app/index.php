@@ -84,6 +84,7 @@
               <a id="left_arm" href="#">Left Arm</a>
               <a id="body" href="#">Body</a>
               <a id="right_arm" href="#">Right Arm</a>
+              <a id="head" href="#">Head</a>
             </div>
           </div>
 
@@ -106,6 +107,10 @@
             <td>
               <div id="myimg_left_arm"></div>
               <div id="left_tag"></div>
+            </td>
+            <td>
+              <div id="myimg_head"></div>
+              <div id="head_tag"></div>
             </td>
             <td>
               <div id="myimg_body"></div>
