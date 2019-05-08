@@ -32,7 +32,7 @@ function importParts(imgSrc) {
         });
         rotateFrameList.push(rotateFrame);
         layer.add(rotateFrame);
-        newImg.on('dragstart', function() {
+        newImg.on('click', function() {
             this.moveToTop();
             rotateFrame.moveToTop();
             layer.draw();
