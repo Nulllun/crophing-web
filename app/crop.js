@@ -136,38 +136,7 @@ $(document).ready(function() {
           ctx.fillStyle = pattern;
           ctx.fill();
 
-          //edit here**************
-          //find 4 est in point
-          let top = null;
-          let down = null;
-          let left = null;
-          let right = null;
-          let xpoints = [];
-          let ypoints = [];
-          for(var pindex in points){
-            if(pindex%2 == 0){
-              xpoints.push(points[pindex]);
-            }
-            else{
-              ypoints.push(points[pindex]);
-            }
-          }
-          right = (Math.max(...xpoints));
-          left = (Math.min(...xpoints));
-          top = (Math.max(...ypoints));
-          down = (Math.min(...ypoints));
-          console.log(right+"|"+left+"|"+top+"|"+down);
-          let tmpImgData = ctx.getImageData(left,top,right-left,down-top);
-          let tmpCanvas = document.createElement('canvas');
-          tmpCanvas.width = right-left;
-          tmpCanvas.height = down-top;
-          let tmpCanvasData = tmpCanvas.getContext('2d');
-          tmpCanvasData.width = tmpCanvas.width;
-          tmpCanvasData.height = tmpCanvas.height;
-          tmpCanvasData.putImageData(tmpImgData,0,0)
-          //end edit
-
-          // var dataurl = canvas.toDataURL("image/png");
+          let tmpCanvas = trim(canvas);
 
           var dataurl = tmpCanvas.toDataURL("image/png");
 
@@ -293,6 +262,7 @@ $(document).ready(function() {
   });
 });
 
+//Reference: https://gist.github.com/remy/784508
 function trim(c) {
   var ctx = c.getContext('2d'),
     copy = document.createElement('canvas').getContext('2d'),
