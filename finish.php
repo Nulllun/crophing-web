@@ -14,9 +14,9 @@ if($_POST) {
     $leftarm = $_POST['leftarm'];
     $rightarm = $_POST['rightarm'];
 
-    $success1 = rename("body/" . $body . ".png", "upload/b/" . $body . ".png");
-    $success2 = rename("left_arm/" . $leftarm . ".png", "upload/la/" . $leftarm . ".png");
-    $success3 = rename("right_arm/" . $rightarm . ".png", "upload/ra/" . $rightarm . ".png");
+    $success1 = rename("body/" . $body . ".png", "upload/body/" . $body . ".png");
+    $success2 = rename("left_arm/" . $leftarm . ".png", "upload/left_arm/" . $leftarm . ".png");
+    $success3 = rename("right_arm/" . $rightarm . ".png", "upload/right_arm/" . $rightarm . ".png");
 
     if ($success1 && $success2 && $success3) 
         echo "Moved file!";

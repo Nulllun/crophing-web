@@ -1,11 +1,2 @@
 *.jpg
 *.png
-nbproject
-
-/body/
-
-/left_arm/
-
-/right_arm/
-
-/upload/
