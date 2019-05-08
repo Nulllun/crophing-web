@@ -1,133 +1,83 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script
-      type="text/javascript"
-      src="http://code.jquery.com/jquery-latest.min.js"
-    ></script>
-    <script type="text/javascript" src="crop.js"></script>
-    <style>
-      canvas {
-        box-shadow: 0 0 10px black;
-        margin: 20px;
-      }
-      .dropbtn {
-        background-color: #4caf50;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-      }
+    <head>
+        <link rel="stylesheet" href="./css/bootstrap.css">
+        <script src="jquery-3.4.1.min.js" type="application/javascript"></script>
+        <script src="popper.min.js" type="application/javascript"></script>
+        <script src="js/bootstrap.js" type="application/javascript"></script>
+    </head>
+    <body>
+        <div class="container">
 
-      .dropdown {
-        position: relative;
-        display: inline-block;
-      }
+            <nav class="nav nav-pills flex-column flex-sm-row">
+                <a class="flex-sm-fill text-sm-center nav-link active" href="index.php">Cropping</a>
+                <a class="flex-sm-fill text-sm-center nav-link" href="assemblePhoto.php">Assemble</a>
+            </nav>
 
-      .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-        z-index: 1;
-      }
+            <form method="POST" action="./index.php" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Select file input</label>
+                    <input type="file" class="form-control-file" name="fileToUpload" id="exampleFormControlFile1">
+                    <input type="submit" class="form-control">
+                </div>
+            </form>
 
-      .dropdown-content a {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
 
-      .dropdown-content a:hover {
-        background-color: #ddd;
-      }
+<?php
+    if(isset($_FILES["fileToUpload"])) {
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
 
-      .dropdown:hover .dropdown-content {
-        display: block;
-      }
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["submit"])) {
+            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+        }
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        // Check file size
+        if ($_FILES["fileToUpload"]["size"] > 500000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (!file_exists($target_file)) {
+                mkdir($target_file, 0777, true);
+            }
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file . "/org." . $imageFileType)) {
+                echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                header("Location: edit.php?link=" . $target_file . "/org." . $imageFileType . "&filename=" . $target_file);
+                die();
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+    }
+?>
 
-      .dropdown:hover .dropbtn {
-        background-color: #3e8e41;
-      }
-    </style>
-  </head>
-  <body>
-    <table>
-      <tr>
-        <td>
-          <div id="container">
-            <canvas
-              width="217"
-              height="275"
-              id="myCanvas"
-              style="position:relative;margin-left:0px;margin-top:0px;"
-            ></canvas>
-          </div>
-          <input type="button" id="crop" value="CROP" />
-          <div id="png" style="display:block;">
-            <br />
-            Refresh to restart.
-          </div>
-          <div>
-            <input type="button" id="finish" value="FINISH" />
-            <br />
-            <br />
-          </div>
-
-          <div class="dropdown">
-            <button class="dropbtn">Parts</button>
-            <div class="dropdown-content">
-              <a id="left_arm" href="#">Left Arm</a>
-              <a id="body" href="#">Body</a>
-              <a id="right_arm" href="#">Right Arm</a>
-              <a id="head" href="#">Head</a>
-            </div>
-          </div>
-
-          <div id="oldposx" style="display:none;"></div>
-          <div id="oldposy" style="display:none;"></div>
-          <div id="posx" style="display:none;"></div>
-          <div id="posy" style="display:none;"></div>
-          <div id="url_src" style="display:none;">
-            <?php
-              echo $_GET['link'];
-            ?>
-          </div>
-          <div id="name_src" style="display:none;"><?php
-              echo $_GET['filename'];
-            ?></div>
-        </td>
-        <td>
-          <i id="editing_message">Let's Start Cropping</i>
-          <table>
-            <td>
-              <div id="myimg_left_arm"></div>
-              <div id="left_tag"></div>
-            </td>
-            <td>
-              <div id="myimg_head"></div>
-              <div id="head_tag"></div>
-            </td>
-            <td>
-              <div id="myimg_body"></div>
-              <div id="body_tag"></div>
-            </td>
-            <td>
-              <div id="myimg_right_arm"></div>
-              <div id="right_tag"></div>
-            </td>
-          </table>
-          <!--preview of image after upload-->
-        </td>
-      </tr>
-      <tr>
-        <a href="assemblePhoto.php"> Go to Assemble </a>
-        <a href="cropupload.php"> Go to Upload </a>
-      </tr>
-    </table>
-  </body>
+</div>
+    </body>
 </html>
