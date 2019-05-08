@@ -75,13 +75,10 @@
             ></canvas>
           </div>
           <div class="dropdown">
-            <button class="dropbtn">Parts</button>
-            <div class="dropdown-content">
-              <a id="left_arm" href="#">Left Arm</a>
-              <a id="body" href="#">Body</a>
-              <a id="right_arm" href="#">Right Arm</a>
-              <a id="head" href="#">Head</a>
-            </div>
+              <button><a id="left_arm" href="#">Left Arm</a></button>
+              <button><a id="body" href="#">Body</a></button>
+              <button><a id="right_arm" href="#">Right Arm</a></button>
+              <button><a id="head" href="#">Head</a></button>
           </div>
           <form class="form-inline">
             <input class="form-control" type="button" id="crop" value="Crop" />
