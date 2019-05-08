@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="jquery-3.4.1.min.js" typw="application/javascript"></script>
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="jquery-3.4.1.min.js" type="application/javascript"></script>
+    <script src="popper.min.js" type="application/javascript"></script>
+    <script src="js/bootstrap.js" type="application/javascript"></script>
     <script src="konva.min.js"></script>
     <meta charset="utf-8" />
     <title>Konva Image Resize Demo</title>
@@ -21,15 +24,23 @@
     </style>
   </head>
   <body>
+  <div class="container">
+
+  <nav class="nav nav-pills flex-column flex-sm-row">
+      <a class="flex-sm-fill text-sm-center nav-link" href="index.php">Cropping</a>
+      <a class="flex-sm-fill text-sm-center nav-link active" href="assemblePhoto.php">Assemble</a>
+  </nav>
     <div id="control_panel">
-        <button id="import_parts" onclick="selectPart()">Import</button>
-        <button id="finish" onclick="savePhoto()">Finish</button>
-        <button id="finish" onclick="show()">Show Boundary</button>
-        <button id="finish" onclick="hide()">Hide Boundary</button>
-        <button id="cropPhoto"><a href = "index.php">Go to CROP CROP</a></button>
+    <form class="form-inline">
+        <button class='form-control' id="import_parts" onclick="selectPart()">Import</button>
+        <button class='form-control'  id="finish" onclick="savePhoto()">Finish</button>
+        <button class='form-control'  id="finish" onclick="show()">Show Boundary</button>
+        <button class='form-control'  id="finish" onclick="hide()">Hide Boundary</button>
+      </form>
     </div>
     <div id="img_bar"></div>
     <div id="model_preview"></div>
+    </div>
   </body>
   <script>
     var img_bar = document.getElementById('img_bar');
