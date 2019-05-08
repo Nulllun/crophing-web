@@ -116,9 +116,12 @@
               <div id="right_tag"></div>
             </td>
           </table>
-
           <!--preview of image after upload-->
         </td>
+      </tr>
+      <tr>
+        <a href="assemblePhoto.php"> Go to Assemble </a>
+        <a href="cropupload.php"> Go to Upload </a>
       </tr>
     </table>
   </body>
