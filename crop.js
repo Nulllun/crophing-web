@@ -133,17 +133,6 @@ $(document).ready(function() {
           ctx.fillStyle = pattern;
           ctx.fill();
 
-          /*
-          var trans_image = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          var trans_image_data = trans_image.data,
-            length = trans_image_data.length;
-          for (var i = 3; i < length; i += 4) {
-            trans_image_data[i] = 50;
-          }
-          trans_image.data = trans_image_data;
-          ctx.putImageData(trans_image, 0, 0);
-          */
-
           var dataurl = canvas.toDataURL("image/png");
 
           //upload to server (if needed)
