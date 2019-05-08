@@ -256,6 +256,11 @@ $(document).ready(function() {
         xhr.send(data);
         if (xhr.status === 200) {
           console.log(xhr.responseText);
+          if (xhr.responseText == "Moved file!") {
+            alert("File Saved");
+          } else {
+            alert("Save Fail! Maybe Try again?");
+          }
         }
       }
     });

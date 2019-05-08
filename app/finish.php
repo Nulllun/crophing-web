@@ -22,7 +22,9 @@ if($_POST) {
     $success1 = rename("body/" . $body . ".png", $filename . "/body.png");
     $success2 = rename("left_arm/" . $leftarm . ".png", $filename . "/leftarm.png");
     $success3 = rename("right_arm/" . $rightarm . ".png", $filename . "/rightarm.png");
-    $success4 = rename("head/" . $head . ".png", "uploads/heads/" . $filename_copy . ".png");
+    if ($head != "") {
+        $success4 = rename("head/" . $head . ".png", "uploads/heads/" . $filename_copy . ".png");
+    }
 
     if ($success1 && $success2 && $success3) 
         echo "Moved file!";
