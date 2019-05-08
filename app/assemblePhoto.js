@@ -83,9 +83,7 @@ function downloadURI(uri, name) {
 function savePhoto() {
     hide();
     var dataURL = stage.toDataURL();
-    downloadURI(dataURL, 'stage.png');
-    
-    
+    downloadURI(dataURL, 'finish.png');
 }
 
 function hide(){
