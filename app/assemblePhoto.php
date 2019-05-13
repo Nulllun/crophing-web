@@ -42,76 +42,17 @@
     </div>
   </body>
   <script>
-    var head_bar = document.getElementById('head_bar');
-    var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
-    headDirs.shift();
-    headDirs.shift();
-    for(var key in headDirs){
-        let path = 'heads/' + headDirs[key];
-        let img_item = document.createElement('img');
-        img_item.className = "img-item";
-        img_item.src = path;
-        img_item.onclick = function() {
-          (async function() {
-            let i = 4;
-            let blob = await fetch(img_item.src).then(r => r.blob());
-            let dataUrl = await new Promise(resolve => {
-            let reader = new FileReader();
-            reader.onload = () => importParts(reader.result);
-            reader.readAsDataURL(blob);
-            
-            });
-          })();
-        }
-        head_bar.append(img_item);
-    }
+    initHeadsBar();
+    initClothesBar();
 
-    var img_bar = document.getElementById('img_bar');
-    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
-    clothesDirs.shift();
-    clothesDirs.shift();
-    for(var key in clothesDirs){
-      for(var i = 0;i<4;i++){
-        let part;
-        if(i==0){
-          part = 'body.png';
-        }
-        if(i==1){
-          part = 'leftarm.png';
-        }
-        if(i==2){
-          part = 'rightarm.png';
-        }
-        if(i==3){
-          part = 'org.png';
-        }
-        let path = 'uploads/' + clothesDirs[key] + '/' + part;
-        let img_item = document.createElement('img');
-        img_item.className = "img-item";
-        img_item.src = path;
-        img_item.onclick = function() {
-          (async function() {
-            let blob = await fetch(img_item.src).then(r => r.blob());
-            let dataUrl = await new Promise(resolve => {
-            let reader = new FileReader();
-            reader.onload = () => importParts(reader.result);
-            reader.readAsDataURL(blob);
-            
-            });
-          })();
-        }
-        img_bar.append(img_item);
-      }
-    }
-
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+    var stageWidth = window.innerWidth;
+    var stageHeight = window.innerHeight;
     var rotateFrameList = [];
 
     var stage = new Konva.Stage({
         container: 'model_preview',
-        width: width,
-        height: height
+        width: stageWidth,
+        height: stageHeight
     });
     var layer = new Konva.Layer();
     stage.add(layer);
@@ -221,6 +162,72 @@
             rotateFrameList[key].show()
         }
         layer.draw();
+    }
+
+    function initHeadsBar(){
+        var head_bar = document.getElementById('head_bar');
+        var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
+        headDirs.shift();
+        headDirs.shift();
+        for(var key in headDirs){
+            let path = 'heads/' + headDirs[key];
+            let img_item = document.createElement('img');
+            img_item.className = "img-item";
+            img_item.src = path;
+            img_item.onclick = function() {
+              (async function() {
+                let i = 4;
+                let blob = await fetch(img_item.src).then(r => r.blob());
+                let dataUrl = await new Promise(resolve => {
+                let reader = new FileReader();
+                reader.onload = () => importParts(reader.result);
+                reader.readAsDataURL(blob);
+                
+                });
+              })();
+            }
+            head_bar.append(img_item);
+        }
+    }
+
+    function initClothesBar() {
+        var img_bar = document.getElementById('img_bar');
+        var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
+        clothesDirs.shift();
+        clothesDirs.shift();
+        for(var key in clothesDirs){
+          for(var i = 0;i<4;i++){
+            let part;
+            if(i==0){
+              part = 'body.png';
+            }
+            if(i==1){
+              part = 'leftarm.png';
+            }
+            if(i==2){
+              part = 'rightarm.png';
+            }
+            if(i==3){
+              part = 'org.png';
+            }
+            let path = 'uploads/' + clothesDirs[key] + '/' + part;
+            let img_item = document.createElement('img');
+            img_item.className = "img-item";
+            img_item.src = path;
+            img_item.onclick = function() {
+              (async function() {
+                let blob = await fetch(img_item.src).then(r => r.blob());
+                let dataUrl = await new Promise(resolve => {
+                let reader = new FileReader();
+                reader.onload = () => importParts(reader.result);
+                reader.readAsDataURL(blob);
+                
+                });
+              })();
+            }
+            img_bar.append(img_item);
+          }
+        }
     }
   </script>
 </html>
