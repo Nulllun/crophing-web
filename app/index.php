@@ -23,12 +23,46 @@
 
 
 <?php
+    if (!file_exists("uploads/")) {
+        mkdir("uploads/", 0777, true);
+    }
+    if (!file_exists("temp/")) {
+        mkdir("temp/", 0777, true);
+    }
+    if (!file_exists("uploads/clothes/")) {
+        mkdir("uploads/clothes/", 0777, true);
+    }
+    if (!file_exists("uploads/heads/")) {
+        mkdir("uploads/heads/", 0777, true);
+    }
+    if (!file_exists("uploads/trousers/")) {
+        mkdir("uploads/trousers/", 0777, true);
+    }
+    if (!file_exists("temp/head/")) {
+        mkdir("temp/head/", 0777, true);
+    }
+    if (!file_exists("temp/body/")) {
+        mkdir("temp/body/", 0777, true);
+    }
+    if (!file_exists("temp/left_arm/")) {
+        mkdir("temp/left_arm/", 0777, true);
+    }
+    if (!file_exists("temp/right_arm/")) {
+        mkdir("temp/right_arm/", 0777, true);
+    }
+    if (!file_exists("temp/trouser/")) {
+        mkdir("temp/trouser/", 0777, true);
+    }
+    if (!file_exists("temp/temp_original/")) {
+        mkdir("temp/temp_original/", 0777, true);
+    }
+
     if(isset($_FILES["fileToUpload"])) {
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
 
-        $target_dir = "uploads/";
+        $target_dir = "temp/temp_original/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $uploadOk = 1;
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -64,12 +98,12 @@
             echo "Sorry, your file was not uploaded.";
         // if everything is ok, try to upload file
         } else {
-            if (!file_exists($target_file)) {
-                mkdir($target_file, 0777, true);
-            }
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file . "/org." . $imageFileType)) {
+            // if (!file_exists($target_file)) {
+            //     mkdir($target_file, 0777, true);
+            // }
+            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file )) {
                 echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                header("Location: edit.php?link=" . $target_file . "/org." . $imageFileType . "&filename=" . $target_file);
+                header("Location: edit.php?link=" . $target_file  . "&filename=" . $target_file);
                 die();
             } else {
                 echo "Sorry, there was an error uploading your file.";

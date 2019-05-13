@@ -38,12 +38,14 @@
     </div>
     <div id="head_bar"></div>
     <div id="img_bar"></div>
+    <div id="trouser_bar"></div>
     <div id="model_preview"></div>
     </div>
   </body>
   <script>
     initHeadsBar();
     initClothesBar();
+    initTrousersBar();
 
     var stageWidth = window.innerWidth;
     var stageHeight = window.innerHeight;
@@ -166,17 +168,16 @@
 
     function initHeadsBar(){
         var head_bar = document.getElementById('head_bar');
-        var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
+        var headDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/heads/'));?>');
         headDirs.shift();
         headDirs.shift();
         for(var key in headDirs){
-            let path = 'heads/' + headDirs[key];
+            let path = 'uploads/heads/' + headDirs[key];
             let img_item = document.createElement('img');
             img_item.className = "img-item";
             img_item.src = path;
             img_item.onclick = function() {
               (async function() {
-                let i = 4;
                 let blob = await fetch(img_item.src).then(r => r.blob());
                 let dataUrl = await new Promise(resolve => {
                 let reader = new FileReader();
@@ -192,7 +193,7 @@
 
     function initClothesBar() {
         var img_bar = document.getElementById('img_bar');
-        var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
+        var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/clothes/'));?>');
         clothesDirs.shift();
         clothesDirs.shift();
         for(var key in clothesDirs){
@@ -210,7 +211,7 @@
             if(i==3){
               part = 'org.png';
             }
-            let path = 'uploads/' + clothesDirs[key] + '/' + part;
+            let path = 'uploads/clothes/' + clothesDirs[key] + '/' + part;
             let img_item = document.createElement('img');
             img_item.className = "img-item";
             img_item.src = path;
@@ -227,6 +228,31 @@
             }
             img_bar.append(img_item);
           }
+        }
+    }
+
+    function initTrousersBar(){
+        var trouser_bar = document.getElementById('trouser_bar');
+        var trouserDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/trousers/'));?>');
+        trouserDirs.shift();
+        trouserDirs.shift();
+        for(var key in trouserDirs){
+            let path = 'uploads/trousers/' + trouserDirs[key];
+            let img_item = document.createElement('img');
+            img_item.className = "img-item";
+            img_item.src = path;
+            img_item.onclick = function() {
+              (async function() {
+                let blob = await fetch(img_item.src).then(r => r.blob());
+                let dataUrl = await new Promise(resolve => {
+                let reader = new FileReader();
+                reader.onload = () => importParts(reader.result);
+                reader.readAsDataURL(blob);
+                
+                });
+              })();
+            }
+            trouser_bar.append(img_item);
         }
     }
   </script>

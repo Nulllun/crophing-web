@@ -14,32 +14,61 @@ if($_POST) {
     $leftarm = $_POST['leftarm'];
     $rightarm = $_POST['rightarm'];
     $head = $_POST['head'];
-    $trousers = $_POST['trousers'];
+    $trouser = $_POST['trouser'];
     $filename = $_POST['filename'];
     $filename_copy = $filename;
-    $filename_copy = str_replace("uploads/", "", $filename_copy);
-    $filename_copy = str_replace(".png", "", $filename_copy);
+    $filename_copy = str_replace("temp/temp_original/", "", $filename_copy);
+    $dir_name = $filename_copy;
+    //$filename_copy = str_replace(".png", "", $filename_copy);
 
     if($body != "") {
-        $success1 = rename("body/" . $body . ".png", $filename . "/body.png");
+        if (!file_exists("uploads/clothes/" . $filename_copy)) {
+            mkdir("uploads/clothes/" . $filename_copy, 0777, true);
+        }
+        $success1 = rename("temp/body/" . $body . ".png", "uploads/clothes/" . $filename_copy . "/body.png");
     }
     if($leftarm != "") {
-        $success2 = rename("left_arm/" . $leftarm . ".png", $filename . "/leftarm.png");
+        if (!file_exists("uploads/clothes/" . $filename_copy)) {
+            mkdir("uploads/clothes/" . $filename_copy, 0777, true);
+        }
+        $success2 = rename("temp/left_arm/" . $leftarm . ".png", "uploads/clothes/" . $filename_copy . "/leftarm.png");
     }
     if($rightarm != "") {
-        $success3 = rename("right_arm/" . $rightarm . ".png", $filename . "/rightarm.png");
+        if (!file_exists("uploads/clothes/" . $filename_copy)) {
+            mkdir("uploads/clothes/" . $filename_copy, 0777, true);
+        }
+        $success3 = rename("temp/right_arm/" . $rightarm . ".png", "uploads/clothes/" . $filename_copy . "/rightarm.png");
     }
-    if($trousers != "") {
-        $success4 = rename("trousers/" . $trousers . ".png", "trousers_saved/" . $filename_copy . ".png");
+    if($trouser != "") {
+        if (!file_exists("uploads/trousers/")) {
+            mkdir("uploads/trousers/", 0777, true);
+        }
+        $success4 = rename("temp/trouser/" . $trouser . ".png", "uploads/trousers/" . $filename_copy);
     }
     if ($head != "") {
-        $success5 = rename("head/" . $head . ".png", "heads/" . $filename_copy . ".png");
+        if (!file_exists("uploads/heads/")) {
+            mkdir("uploads/heads/", 0777, true);
+        }
+        $success5 = rename("temp/head/" . $head . ".png", "uploads/heads/" . $filename_copy);
     }
 
-    if (($success1 && $success2 && $success3) || ($success4)) 
+    if ((($success1 && $success2 && $success3) || ($success4))|| ($success5)){
+        if ($success1 && $success2 && $success3){
+            rename($filename, "uploads/clothes/" . $filename_copy . "/org.png");
+        }
+        if($success4){
+            unlink($filename);
+        }
+        if($success5){
+            unlink($filename);
+        }
+
         echo "Moved file!";
-    else
+    }
+    else {
         echo "Failed to move file!";
+    }
+       
 
 
 }

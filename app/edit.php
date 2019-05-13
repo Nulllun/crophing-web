@@ -78,7 +78,7 @@
               <button><a id="left_arm" href="#">Left Arm</a></button>
               <button><a id="body" href="#">Body</a></button>
               <button><a id="right_arm" href="#">Right Arm</a></button>
-              <button><a id="trousers" href="#">Trousers</a></button>
+              <button><a id="trouser" href="#">Trouser</a></button>
               <button><a id="head" href="#">Head</a></button>
           </div>
           <form class="form-inline">

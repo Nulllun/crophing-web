@@ -9,12 +9,12 @@ $(document).ready(function() {
   var condition = 1;
   var points = []; //holds the mousedown points
   var canvas = document.getElementById("myCanvas");
-  var part = "body/";
+  var part = "temp/body/";
   var done_left_arm = "";
   var done_right_arm = "";
   var done_body = "";
   var done_head = "";
-  var done_trousers = "";
+  var done_trouser = "";
   this.isOldIE = window.G_vmlCanvasManager;
   $(function() {
     //  if (document.domain == 'localhost') {
@@ -156,45 +156,45 @@ $(document).ready(function() {
           xhr.send(data);
           if (xhr.status === 200) {
             console.log(xhr.responseText);
-            if (part == "left_arm/" || done_left_arm != "") {
-              if (part == "left_arm/") {
+            if (part == "temp/left_arm/" || done_left_arm != "") {
+              if (part == "temp/left_arm/") {
                 done_left_arm = xhr.responseText;
               }
               $("#myimg_left_arm").html(
-                '<img src="left_arm/' + done_left_arm + '.png"/>'
+                '<img src="temp/left_arm/' + done_left_arm + '.png"/>'
               );
               document.getElementById("left_tag").innerHTML = "Left Arm";
             }
-            if (part == "right_arm/" || done_right_arm != "") {
-              if (part == "right_arm/") {
+            if (part == "temp/right_arm/" || done_right_arm != "") {
+              if (part == "temp/right_arm/") {
                 done_right_arm = xhr.responseText;
               }
               $("#myimg_right_arm").html(
-                '<img src="right_arm/' + done_right_arm + '.png"/>'
+                '<img src="temp/right_arm/' + done_right_arm + '.png"/>'
               );
               document.getElementById("right_tag").innerHTML = "Right Arm";
             }
-            if (part == "body/" || done_body != "") {
-              if (part == "body/") {
+            if (part == "temp/body/" || done_body != "") {
+              if (part == "temp/body/") {
                 done_body = xhr.responseText;
               }
-              $("#myimg_body").html('<img src="body/' + done_body + '.png"/>');
+              $("#myimg_body").html('<img src="temp/body/' + done_body + '.png"/>');
               document.getElementById("body_tag").innerHTML = "Body";
             }
-            if (part == "trousers/" || done_body != "") {
-              if (part == "trousers/") {
-                done_trousers = xhr.responseText;
+            if (part == "temp/trouser/" || done_trouser != "") {
+              if (part == "temp/trouser/") {
+                done_trouser = xhr.responseText;
               }
               $("#myimg_trouser").html(
-                '<img src="trousers/' + done_trousers + '.png"/>'
+                '<img src="temp/trouser/' + done_trouser + '.png"/>'
               );
-              document.getElementById("trouser_tag").innerHTML = "Trousers";
+              document.getElementById("trouser_tag").innerHTML = "Trouser";
             }
-            if (part == "head/" || done_head != "") {
-              if (part == "head/") {
+            if (part == "temp/head/" || done_head != "") {
+              if (part == "temp/head/") {
                 done_head = xhr.responseText;
               }
-              $("#myimg_head").html('<img src="head/' + done_head + '.png"/>');
+              $("#myimg_head").html('<img src="temp/head/' + done_head + '.png"/>');
               document.getElementById("head_tag").innerHTML = "Head";
             }
             ctx = canvas.getContext("2d");
@@ -214,35 +214,35 @@ $(document).ready(function() {
     });
 
     $("#left_arm").click(function() {
-      part = "left_arm/";
+      part = "temp/left_arm/";
       document.getElementById("editing_message").innerHTML =
         "Now Croping Left Arm";
       console.log(part);
     });
 
     $("#right_arm").click(function() {
-      part = "right_arm/";
+      part = "temp/right_arm/";
       document.getElementById("editing_message").innerHTML =
         "Now Croping Right Arm";
       console.log(part);
     });
 
     $("#body").click(function() {
-      part = "body/";
+      part = "temp/body/";
       document.getElementById("editing_message").innerHTML = "Now Croping Body";
       console.log(part);
     });
 
     $("#head").click(function() {
-      part = "head/";
+      part = "temp/head/";
       document.getElementById("editing_message").innerHTML = "Now Croping Head";
       console.log(part);
     });
 
-    $("#trousers").click(function() {
-      part = "trousers/";
+    $("#trouser").click(function() {
+      part = "temp/trouser/";
       document.getElementById("editing_message").innerHTML =
-        "Now Croping Trousers";
+        "Now Croping Trouser";
       console.log(part);
     });
 
@@ -259,7 +259,7 @@ $(document).ready(function() {
         );
         var data = new FormData();
         var myprod = $("#pid").val();
-        console.log("done_body:" + done_body);
+        console.log("done_trouser:" + done_trouser);
         console.log(document.getElementById("name_src").innerHTML);
         data =
           "body=" +
@@ -270,8 +270,8 @@ $(document).ready(function() {
           done_right_arm +
           "&head=" +
           done_head +
-          "&trousers=" +
-          done_trousers +
+          "&trouser=" +
+          done_trouser +
           "&filename=" +
           document.getElementById("name_src").innerHTML;
         xhr.send(data);
