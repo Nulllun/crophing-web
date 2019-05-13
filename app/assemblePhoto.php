@@ -17,8 +17,8 @@
       }
       
       .img-item {
-        height:100px;
-        width:100px;
+        height:50px;
+        width:50px;
       }
 
     </style>
@@ -31,12 +31,10 @@
       <a class="flex-sm-fill text-sm-center nav-link active" href="assemblePhoto.php">Assemble</a>
   </nav>
     <div id="control_panel">
-    <form class="form-inline">
-        <button class='form-control' id="import_parts" onclick="selectPart()">Import</button>
-        <button class='form-control'  id="finish" onclick="savePhoto()">Finish</button>
-        <button class='form-control'  id="finish" onclick="show()">Show Boundary</button>
-        <button class='form-control'  id="finish" onclick="hide()">Hide Boundary</button>
-      </form>
+        <span style="display:inline-block"><button class='form-control' id="import_parts" onclick="selectPart()">Import</button></span>
+        <span style="display:inline-block"><button class='form-control' id="finish" onclick="savePhoto()">Finish</button></span>
+        <span style="display:inline-block"><button class='form-control' id="finish" onclick="show()">Show Boundary</button></span>
+        <span style="display:inline-block"><button class='form-control' id="finish" onclick="hide()">Hide Boundary</button></span>
     </div>
     <div id="head_bar"></div>
     <div id="img_bar"></div>
@@ -44,75 +42,17 @@
     </div>
   </body>
   <script>
-    var head_bar = document.getElementById('head_bar');
-    var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
-    headDirs.shift();
-    headDirs.shift();
-    for(var key in headDirs){
-        let path = 'heads/' + headDirs[key];
-        let img_item = document.createElement('img');
-        img_item.className = "img-item";
-        img_item.src = path;
-        img_item.onclick = function() {
-          (async function() {
-            let blob = await fetch(img_item.src).then(r => r.blob());
-            let dataUrl = await new Promise(resolve => {
-            let reader = new FileReader();
-            reader.onload = () => importParts( reader.result);
-            reader.readAsDataURL(blob);
-            
-            });
-          })();
-        }
-        head_bar.append(img_item);
-    }
+    initHeadsBar();
+    initClothesBar();
 
-    var img_bar = document.getElementById('img_bar');
-    var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
-    clothesDirs.shift();
-    clothesDirs.shift();
-    for(var key in clothesDirs){
-      for(var i = 0;i<4;i++){
-        let part;
-        if(i==0){
-          part = 'body.png';
-        }
-        if(i==1){
-          part = 'leftarm.png';
-        }
-        if(i==2){
-          part = 'rightarm.png';
-        }
-        if(i==3){
-          part = 'org.png';
-        }
-        let path = 'uploads/' + clothesDirs[key] + '/' + part;
-        let img_item = document.createElement('img');
-        img_item.className = "img-item";
-        img_item.src = path;
-        img_item.onclick = function() {
-          (async function() {
-            let blob = await fetch(img_item.src).then(r => r.blob());
-            let dataUrl = await new Promise(resolve => {
-            let reader = new FileReader();
-            reader.onload = () => importParts( reader.result);
-            reader.readAsDataURL(blob);
-            
-            });
-          })();
-        }
-        img_bar.append(img_item);
-      }
-    }
-
-    var width = window.innerWidth;
-    var height = window.innerHeight;
+    var stageWidth = window.innerWidth;
+    var stageHeight = window.innerHeight;
     var rotateFrameList = [];
 
     var stage = new Konva.Stage({
         container: 'model_preview',
-        width: width,
-        height: height
+        width: stageWidth,
+        height: stageHeight
     });
     var layer = new Konva.Layer();
     stage.add(layer);
@@ -121,11 +61,19 @@
         
         var imageObj = new Image();
         imageObj.onload = function () {
+            let width = imageObj.width;
+            let height = imageObj.height;
+            let posx = 80;
+            let posy = 80;
+            if(height>400){
+                width = 400*width/height;
+                height = 400;
+            }
             var newImg = new Konva.Image({
-                width: imageObj.width,
-                height: imageObj.height,
-                x: 80,
-                y: 80,
+                width: width,
+                height: height,
+                x: posx,
+                y: posy,
                 draggable: true
             });
 
@@ -214,6 +162,72 @@
             rotateFrameList[key].show()
         }
         layer.draw();
+    }
+
+    function initHeadsBar(){
+        var head_bar = document.getElementById('head_bar');
+        var headDirs =  JSON.parse('<?php echo json_encode(scandir('heads/'));?>');
+        headDirs.shift();
+        headDirs.shift();
+        for(var key in headDirs){
+            let path = 'heads/' + headDirs[key];
+            let img_item = document.createElement('img');
+            img_item.className = "img-item";
+            img_item.src = path;
+            img_item.onclick = function() {
+              (async function() {
+                let i = 4;
+                let blob = await fetch(img_item.src).then(r => r.blob());
+                let dataUrl = await new Promise(resolve => {
+                let reader = new FileReader();
+                reader.onload = () => importParts(reader.result);
+                reader.readAsDataURL(blob);
+                
+                });
+              })();
+            }
+            head_bar.append(img_item);
+        }
+    }
+
+    function initClothesBar() {
+        var img_bar = document.getElementById('img_bar');
+        var clothesDirs =  JSON.parse('<?php echo json_encode(scandir('uploads/'));?>');
+        clothesDirs.shift();
+        clothesDirs.shift();
+        for(var key in clothesDirs){
+          for(var i = 0;i<4;i++){
+            let part;
+            if(i==0){
+              part = 'body.png';
+            }
+            if(i==1){
+              part = 'leftarm.png';
+            }
+            if(i==2){
+              part = 'rightarm.png';
+            }
+            if(i==3){
+              part = 'org.png';
+            }
+            let path = 'uploads/' + clothesDirs[key] + '/' + part;
+            let img_item = document.createElement('img');
+            img_item.className = "img-item";
+            img_item.src = path;
+            img_item.onclick = function() {
+              (async function() {
+                let blob = await fetch(img_item.src).then(r => r.blob());
+                let dataUrl = await new Promise(resolve => {
+                let reader = new FileReader();
+                reader.onload = () => importParts(reader.result);
+                reader.readAsDataURL(blob);
+                
+                });
+              })();
+            }
+            img_bar.append(img_item);
+          }
+        }
     }
   </script>
 </html>
