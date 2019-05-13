@@ -14,6 +14,7 @@ $(document).ready(function() {
   var done_right_arm = "";
   var done_body = "";
   var done_head = "";
+  var done_trousers = "";
   this.isOldIE = window.G_vmlCanvasManager;
   $(function() {
     //  if (document.domain == 'localhost') {
@@ -180,6 +181,15 @@ $(document).ready(function() {
               $("#myimg_body").html('<img src="body/' + done_body + '.png"/>');
               document.getElementById("body_tag").innerHTML = "Body";
             }
+            if (part == "trousers/" || done_body != "") {
+              if (part == "trousers/") {
+                done_trousers = xhr.responseText;
+              }
+              $("#myimg_trouser").html(
+                '<img src="trousers/' + done_trousers + '.png"/>'
+              );
+              document.getElementById("trouser_tag").innerHTML = "Trousers";
+            }
             if (part == "head/" || done_head != "") {
               if (part == "head/") {
                 done_head = xhr.responseText;
@@ -229,6 +239,13 @@ $(document).ready(function() {
       console.log(part);
     });
 
+    $("#trousers").click(function() {
+      part = "trousers/";
+      document.getElementById("editing_message").innerHTML =
+        "Now Croping Trousers";
+      console.log(part);
+    });
+
     // }
     $("#finish").click(function() {
       {
@@ -253,6 +270,8 @@ $(document).ready(function() {
           done_right_arm +
           "&head=" +
           done_head +
+          "&trousers=" +
+          done_trousers +
           "&filename=" +
           document.getElementById("name_src").innerHTML;
         xhr.send(data);
@@ -271,8 +290,8 @@ $(document).ready(function() {
 
 //Reference: https://gist.github.com/remy/784508
 function trim(c) {
-  var ctx = c.getContext('2d'),
-    copy = document.createElement('canvas').getContext('2d'),
+  var ctx = c.getContext("2d"),
+    copy = document.createElement("canvas").getContext("2d"),
     pixels = ctx.getImageData(0, 0, c.width, c.height),
     l = pixels.data.length,
     i,
@@ -282,29 +301,30 @@ function trim(c) {
       right: null,
       bottom: null
     },
-    x, y;
+    x,
+    y;
 
   for (i = 0; i < l; i += 4) {
-    if (pixels.data[i+3] !== 0) {
+    if (pixels.data[i + 3] !== 0) {
       x = (i / 4) % c.width;
-      y = ~~((i / 4) / c.width);
-  
+      y = ~~(i / 4 / c.width);
+
       if (bound.top === null) {
         bound.top = y;
       }
-      
+
       if (bound.left === null) {
-        bound.left = x; 
+        bound.left = x;
       } else if (x < bound.left) {
         bound.left = x;
       }
-      
+
       if (bound.right === null) {
-        bound.right = x; 
+        bound.right = x;
       } else if (bound.right < x) {
         bound.right = x;
       }
-      
+
       if (bound.bottom === null) {
         bound.bottom = y;
       } else if (bound.bottom < y) {
@@ -312,15 +332,15 @@ function trim(c) {
       }
     }
   }
-    
+
   var trimHeight = bound.bottom - bound.top,
-      trimWidth = bound.right - bound.left,
-      trimmed = ctx.getImageData(bound.left, bound.top, trimWidth, trimHeight);
-  
+    trimWidth = bound.right - bound.left,
+    trimmed = ctx.getImageData(bound.left, bound.top, trimWidth, trimHeight);
+
   copy.canvas.width = trimWidth;
   copy.canvas.height = trimHeight;
   copy.putImageData(trimmed, 0, 0);
-  
+
   // open new window with trimmed image:
   return copy.canvas;
 }

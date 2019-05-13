@@ -78,6 +78,7 @@
               <button><a id="left_arm" href="#">Left Arm</a></button>
               <button><a id="body" href="#">Body</a></button>
               <button><a id="right_arm" href="#">Right Arm</a></button>
+              <button><a id="trousers" href="#">Trousers</a></button>
               <button><a id="head" href="#">Head</a></button>
           </div>
           <form class="form-inline">
@@ -115,6 +116,10 @@
             <td>
               <div id="myimg_body"></div>
               <div id="body_tag"></div>
+            </td>
+            <td>
+              <div id="myimg_trouser"></div>
+              <div id="trouser_tag"></div>
             </td>
             <td>
               <div id="myimg_right_arm"></div>
