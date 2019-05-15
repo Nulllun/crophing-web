@@ -1,10 +1,3 @@
-/*
- * HTML5 crop image in polygon shape
- * author: netplayer@gmx.com
- * file : crop.js
-   github version
- */
-
 $(document).ready(function() {
   var condition = 1;
   var points = []; //holds the mousedown points
@@ -178,7 +171,9 @@ $(document).ready(function() {
               if (part == "temp/body/") {
                 done_body = xhr.responseText;
               }
-              $("#myimg_body").html('<img src="temp/body/' + done_body + '.png"/>');
+              $("#myimg_body").html(
+                '<img src="temp/body/' + done_body + '.png"/>'
+              );
               document.getElementById("body_tag").innerHTML = "Body";
             }
             if (part == "temp/trouser/" || done_trouser != "") {
@@ -194,7 +189,9 @@ $(document).ready(function() {
               if (part == "temp/head/") {
                 done_head = xhr.responseText;
               }
-              $("#myimg_head").html('<img src="temp/head/' + done_head + '.png"/>');
+              $("#myimg_head").html(
+                '<img src="temp/head/' + done_head + '.png"/>'
+              );
               document.getElementById("head_tag").innerHTML = "Head";
             }
             ctx = canvas.getContext("2d");
