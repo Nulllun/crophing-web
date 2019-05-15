@@ -17,7 +17,8 @@ git clone https://github.com/Nulllun/CSCI4140_project.git
 When you first open the index page, you can choose to upload and edit your designs. After you upload the file, you can crop it by selecting the required regions in the image.  
 For clothes, you need to crop both arms and body.  
 For trousers/dress, you only need to crop it.  
-If you have cropped the wrong region from the image, you can re-crop the parts and it will be replaced by the newest edit.
+If you have cropped the wrong region from the image, you can re-crop the parts and it will be replaced by the newest edit.  
+After you have finished, click the finish button and your design will now be displayed on the assemble page.
 ### Assemble created designs
 In the assemble page, you can find different designs appear in the head bar. 
 When you choose a piece of garment, you can 'try on' the clothing by draging the pieces together. 
