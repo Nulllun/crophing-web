@@ -26,7 +26,7 @@ When you choose a piece of garment, you can 'try on' the clothing by draging the
 * You can enlarge and rotate the pieces to fit your own size and posture. 
 * If you click a single piece, it will be moved to the top layer. 
 * If you double click it, it will be removed.
-#### For more details, please refers to the demo video [here](Put the youtube url here)
+#### For more details, please refers to the demo video [here](https://youtu.be/eDs48APii5g)
 
 ## Acknowledgement
 * [netplayer crop](https://github.com/netplayer/crop)
