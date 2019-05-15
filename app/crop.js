@@ -239,7 +239,7 @@ $(document).ready(function() {
     $("#trouser").click(function() {
       part = "temp/trouser/";
       document.getElementById("editing_message").innerHTML =
-        "Now Croping Trouser";
+        "Now Croping Trouser or Dress";
       console.log(part);
     });
 
