@@ -29,5 +29,5 @@ When you choose a piece of garment, you can 'try on' the clothing by draging the
 #### For more details, please refers to the demo video [here](Put the youtube url here)
 
 ## Acknowledgement
-[netplayer crop](https://github.com/netplayer/crop)
-[trim-canvas](https://gist.github.com/remy/784508)
+* [netplayer crop](https://github.com/netplayer/crop)
+* [trim-canvas](https://gist.github.com/remy/784508)
