@@ -1,6 +1,6 @@
 # Crophing -- A simple all-in-one clothing showcase platform
 Crophing is a simple website that you can upload and edit different designs that you have in your mind while your customers have the freedom to customize the size of the garment.  
-The most recent commit hash value of master branch is 1ff0f9a22a96f16582bf4acbe53cea4fa5c6255f__
+The most recent commit hash value of master branch is 1ff0f9a22a96f16582bf4acbe53cea4fa5c6255f  <br/>  
 Demo video: https://youtu.be/eDs48APii5g
 # Getting Started
 
