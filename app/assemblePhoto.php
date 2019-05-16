@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="popper.min.js" type="application/javascript"></script>
-    <script src="js/bootstrap.js" type="application/javascript"></script>
+    <script src="js/bootstrap.min.js" type="application/javascript"></script>
     <script src="konva.min.js"></script>
     <meta charset="utf-8" />
     <title>Konva Image Resize Demo</title>

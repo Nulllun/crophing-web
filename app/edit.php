@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="jquery-3.4.1.min.js" type="application/javascript"></script>
     <script src="popper.min.js" type="application/javascript"></script>
-      <script src="js/bootstrap.js" type="application/javascript"></script>
+      <script src="js/bootstrap.min.js" type="application/javascript"></script>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
