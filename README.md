@@ -31,3 +31,5 @@ When you choose a piece of garment, you can 'try on' the clothing by draging the
 ## Acknowledgement
 * [netplayer crop](https://github.com/netplayer/crop)
 * [trim-canvas](https://gist.github.com/remy/784508)
+* [jquery-3.4.1]
+* [konva-3.2.4]
