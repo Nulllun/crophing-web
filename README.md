@@ -1,5 +1,5 @@
-# Crophing -- A simple all-in-one clothing showcase platform
-Crophing is a simple website that you can upload and edit different designs that you have in your mind while your customers have the freedom to customize the size of the garment.  
+# Chophing -- A simple all-in-one clothing showcase platform
+Chophing is a simple website that you can upload and edit different designs that you have in your mind while your customers have the freedom to customize the size of the garment.  
 Demo video: https://youtu.be/eDs48APii5g
 # Getting Started
 
@@ -14,10 +14,10 @@ git clone https://github.com/Nulllun/CSCI4140_project.git
 
 ## Usage
 ### Upload garment designs
-When you first open the index page, you can choose to upload and edit your designs. After you upload the file, you can crop it by selecting the required regions in the image.  
-For clothes, you need to crop both arms and body.  
-For trousers/dress, you only need to crop it.  
-If you have cropped the wrong region from the image, you can re-crop the parts and it will be replaced by the newest edit.  
+When you first open the index page, you can choose to upload and edit your designs. After you upload the file, you can chop it by selecting the required regions in the image.  
+For clothes, you need to chop both arms and body.  
+For trousers/dress, you only need to chop it.  
+If you have chopped the wrong region from the image, you can re-chop the parts and it will be replaced by the newest edit.  
 After you have finished, click the finish button and your design will now be displayed on the assemble page.
 ### Assemble created designs
 In the assemble page, you can find different designs appear in the head bar. 
