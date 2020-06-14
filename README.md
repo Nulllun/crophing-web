@@ -1,5 +1,5 @@
-# Chophing -- A simple all-in-one clothing showcase platform
-Chophing is a simple website that you can upload and edit different designs that you have in your mind while your customers have the freedom to customize the size of the garment.  
+# Crophing -- A simple all-in-one clothing showcase platform
+Crophing is a simple website that you can upload and edit different designs that you have in your mind while your customers have the freedom to customize the size of the garment.  
 Demo video: https://youtu.be/eDs48APii5g
 # Getting Started
 
