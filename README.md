@@ -12,7 +12,7 @@ Chrome 74.0+
 ## Installing
 You can download the entire project and deploy on your machine or on a remote server. To download the project, you can download the zip file or run the following command
 ```
-git clone https://github.com/Nulllun/CSCI4140_project.git
+git clone https://github.com/Nulllun/crophing-web.git
 ```
 
 ## Usage
@@ -28,7 +28,6 @@ When you choose a piece of garment, you can 'try on' the clothing by draging the
 * You can enlarge and rotate the pieces to fit your own size and posture. 
 * If you click a single piece, it will be moved to the top layer. 
 * If you double click it, it will be removed.
-#### For more details, please refers to the demo video [here](https://youtu.be/eDs48APii5g)
 
 ## Acknowledgement
 * [netplayer crop](https://github.com/netplayer/crop)
